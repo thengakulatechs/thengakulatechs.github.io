@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>android on Thengakula Techs</title>
+    <link>https://thengakulatechs.github.io/categories/android/</link>
+    <description>Recent content in android on Thengakula Techs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 05 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://thengakulatechs.github.io/categories/android/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Repo Installation and Configuration</title>
+      <link>https://thengakulatechs.github.io/posts/setup-repotool/</link>
+      <pubDate>Fri, 05 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://thengakulatechs.github.io/posts/setup-repotool/</guid>
+      <description>Repo Installation and Basic Configuration Repo, a Google-built repository-management tool that runs on top of Git. Repo unifies Git repositories when necessary, performs uploads to the Gerrit revision control system, and automates parts of the Android development workflow.
+Installation Repo comes in two parts: One is a launcher script you install, and it communicates with the second part, the full Repo tool included in a source code checkout. To install Repo:</description>
+    </item>
+    
+  </channel>
+</rss>
