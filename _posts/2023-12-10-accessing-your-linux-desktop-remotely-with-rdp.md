@@ -4,8 +4,6 @@ date: 2023-12-10 11:27:16 +0400
 categories: [Remote Access, Linux]
 tags: [rdp]
 ---
-## Accessing Your Linux Desktop Remotely with RDP
-
 Remotely working on your Linux machine can be convenient and efficient, especially with the familiar and widely supported RDP (Remote Desktop Protocol). This guide walks you through setting up and connecting to your Linux desktop remotely using XRDP, a free and powerful third-party server, regardless of your specific distribution.
 
 ### Setting Up XRDP
