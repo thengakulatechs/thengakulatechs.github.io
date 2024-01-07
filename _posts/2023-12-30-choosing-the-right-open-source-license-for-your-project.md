@@ -8,7 +8,7 @@ draft: False  ### Optional draft status
 
 In the vibrant ecosystem of open-source software (OSS), the code isn't the only thing shared. Licenses, the legal frameworks governing the use and distribution of the code, play a crucial role in shaping the project's trajectory and community. Selecting the appropriate license can be a strategic decision, one that impacts not only the code's accessibility but also the potential for collaboration, commercialization, and overall community engagement.
 
-### Permissive Licenses: Unleashing the Code's Potential
+## Permissive Licenses: Unleashing the Code's Potential
 
 These licenses prioritize user flexibility, granting them broad rights to use, modify, and distribute the code with minimal restrictions. Popular examples include:
 
@@ -27,7 +27,7 @@ These licenses prioritize user flexibility, granting them broad rights to use, m
 * Limited Control: Once released, you relinquish significant control over how users modify or distribute your code. 
 * Potential for Closed-Source Derivatives: Users can create proprietary versions of your code without sharing their changes, hindering community growth.
 
-### Copyleft Licenses: Sharing the Code, Sharing the Freedom
+## Copyleft Licenses: Sharing the Code, Sharing the Freedom
 
 These licenses prioritize the preservation of open-source principles, ensuring any derivative works based on your code remain open-source. Popular examples include:
 
@@ -46,7 +46,7 @@ These licenses prioritize the preservation of open-source principles, ensuring a
 * Potential Adoption Hurdles: Some users may be hesitant to adopt code under strong copyleft licenses due to restrictions on proprietary use. 
 * Integration Challenges: Integrating copyleft code with proprietary software can be complex and require careful legal consideration.
 
-### Finding the Perfect Match: Choosing the Right License
+## Finding the Perfect Match: Choosing the Right License
 
 The optimal license for your project hinges on your specific goals and priorities. Consider these key factors:
 
