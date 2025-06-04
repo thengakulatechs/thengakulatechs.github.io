@@ -82,10 +82,8 @@ This process encourages collaboration, feedback, and transparent code sharing.
 ## Navigating the Git Landscape: GUI vs Command Line
 
 Git can be used through a graphical user interface (GUI) or via the command line interface (CLI). Both approaches offer advantages depending on your preferences and workflow.
-
 GUI tools like GitHub Desktop, SourceTree, or GitKraken are great for visual learners and beginners.
 CLI offers more control and flexibility, making it the preferred tool for advanced users and automation.
-
 Choose the one that complements your learning styleand feel free to switch as your comfort level grows.
 
 ## Summary
