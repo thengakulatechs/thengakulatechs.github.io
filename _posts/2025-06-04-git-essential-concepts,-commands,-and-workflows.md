@@ -89,7 +89,6 @@ Choose the one that complements your learning styleand feel free to switch as yo
 ## Summary
 
 By mastering Git’s core concepts, branching strategies, essential commands, and collaborative workflows, you'll be well-equipped to manage code efficiently and contribute effectively to any team or open-source project.
-
 ### Next Steps:
 
 - Practice with a sample repository on GitHub

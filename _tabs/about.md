@@ -4,5 +4,50 @@ icon: fas fa-info-circle
 order: 4
 ---
 
->Greetings fellow tech enthusiasts and inquisitive minds! I'm a passionate developer, cyber security researcher and tech enthusiast with a knack for unconventional solutions. I've always been fascinated by technology and I love learning new things. This blog serves as my virtual sanctuary, a chronicle of my thoughts, experiments and unwavering pursuit of knowledge. I aspire to share my experiences and insights with the tech community, fostering a vibrant hub of innovation and empowering fellow travelers on their digital odyssey. Whether you are a seasoned expert or an inquisitive novice, I extend a warm invitation to delve into my digital realm and discover something new.
+# 👨‍💻
+
+{: .prompt-tip }
+
+> 👋 Hello, fellow tech enthusiasts and curious minds!  
+> I'm a **developer**, **cybersecurity researcher** and **lifelong learner** with a passion for building, breaking (ethically), and discovering smarter ways to solve problems.
+
+---
+
+## 🧠 What I Do
+
+- 🔹 Write code, solve bugs, and build tools. 
+- 🔹 Explore ethical hacking and digital security.
+- 🔹 Share practical knowledge from real world dev and infosec work.
+
+---
+
+## ✍️ What You’ll Find on This Blog
+
+- 📚 Developer how tos and walkthroughs.
+- 🔒 Cybersecurity experiments and insights.
+- 🛠 Productivity tips and workflow enhancements.
+- 🌐 Thoughts on open source, tech culture and creative problem solving.
+
+---
+
+## 🤝 Why I Write
+
+This blog is my digital lab — a space to:
+
+- Share my journey.
+- Help others learn faster.
+- Contribute to a culture of open knowledge.
+
+Whether you're a **seasoned engineer** or just starting out, I hope you'll find something here that sparks your curiosity.
+
+---
+
+## 🚀 Let’s Explore Together
+
+Thanks for dropping by! Feel free to explore.
+Let’s keep experimenting, learning, and leveling up together. 🧪💻
+
+---
+
+> _“"It ain't much, but it's honest work"_
 {: .prompt-tip }
