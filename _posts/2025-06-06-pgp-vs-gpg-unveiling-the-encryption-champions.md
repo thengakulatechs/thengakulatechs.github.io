@@ -1,7 +1,7 @@
 ---
 title: PGP vs GPG - Unveiling the Encryption Champions
 date: 2025-06-06 15:13:47 +0530
-categories: [Technology, Cybersecurity]
+categories: [Cybersecurity, Encryption]
 tags: ['encryption', 'privacy', 'cybersecurity', 'pgp', 'gpg', 'datasecurity', 'digital-privacy', 'open-source', 'public-key-cryptography']
 ---
 
