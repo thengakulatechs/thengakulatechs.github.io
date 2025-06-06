@@ -4,8 +4,6 @@ date: 2025-06-04 21:20:38 +0530
 categories: [Version Control System, Git, Tools, Installation, Tutorial]
 tags: [git, setup, installation, windows, linux, macos]
 ---
-# Installing Git: A Simplified Guide for Linux, macOS, and Windows
-
 Git is a powerful version control system used by developers worldwide. Before you start managing your projects with Git, you need to install it on your system. This guide walks you through the installation steps for Linux, macOS, and Windows, plus how to set up Git for your personal use.
 
 ---
@@ -69,6 +67,24 @@ After installation, configure Git to identify your commits with your name and em
 git config --global user.name "Your Name"
 git config --global user.email yourname@example.com
 ```
+>Example
+```bash
+git config --global user.name Anoop Kumar
+git config --global user.email anoopkumar1119@gmail.com
+```
+{: .prompt-info }
+
+> Why configure this ?\
+> Your `username` and `email` appear in the commit history, helping teams track who made changes. Setting an editor ensures you can easily write commit messages.
+{: .prompt-tip }
+>Example
+```text
+commit ff479ca6e8b37785329f28617dcd5fc953875a2b
+Author: Anoop Kumar <anoopkumar1119@gmail.com>
+Date:   Fri Jun 6 06:53:48 2025 +0200
+```
+{: .prompt-info } 
+
 Set your preferred text editor for commit messages and other Git actions:
 - On Linux/macOS (example: nano):
 ```sh
@@ -81,10 +97,15 @@ git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -mul
 Verify your configuration settings anytime with:
 ```sh
 git config --list
+``` 
+
+>Example
+```text
+core.editor="C:\\Program Files\\Notepad++\\notepad++.exe" -multiInst -notabbar -nosession -noPlugin
+user.name=Anoop Kumar
+user.email=anoopkumar1119@gmail.com
 ```
-> Why configure this ?
-> Your username and email appear in the commit history, helping teams track who made changes. Setting an editor ensures you can easily write commit messages.
-{: .prompt-info }
+{: .prompt-info } 
 
 ## 📚 Getting Started with Git
 Initialize a new Git repository inside any project folder with:
