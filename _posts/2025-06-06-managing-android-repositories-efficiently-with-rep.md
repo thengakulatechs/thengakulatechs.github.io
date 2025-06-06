@@ -161,4 +161,4 @@ rm -rf * && repo sync -l
 ## 📚 References & Resources
 
 📖<a href="https://source.android.com/setup/develop" target="_blank" rel="noopener noreferrer">Android Source Developer Guide – Google</a>\
-💬<a href="https://stackoverflow.com/questions/5012163/how-to-discard-changes-using-repo" target="_blank" rel="noopener noreferrer">StackOverflow: Discard Changes Using Repo<a>
+💬<a href="https://stackoverflow.com/questions/5012163/how-to-discard-changes-using-repo" target="_blank" rel="noopener noreferrer">StackOverflow: Discard Changes Using Repo</a>
