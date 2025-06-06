@@ -87,7 +87,6 @@ ip addr show
 **link/ether** – MAC address
 {: .prompt-tip }
 
-
 Look for an entry under your active network interface (eth0, enp0s3, or wlan0) that looks like this:
 ```shell
 inet 192.168.1.42/24
@@ -120,6 +119,12 @@ If you’re running a desktop environment:
 2. Click on the active connection (Wi-Fi or Ethernet).
 3. Look for IPv4 Address or IP Address.
 
+### 🌍 Bonus: Find Your Public IP
+If you want to connect from a different network (e.g., over the internet), you’ll need your public IP:
+```bash
+curl ifconfig.me
+```
+
 ### 🧠 Know Your IP Context
 - Local IP (e.g., 192.168.x.x, 10.x.x.x) is for devices on the same network.
 - Public IP (e.g., 203.0.113.1) is for access outside your network.
@@ -135,17 +140,32 @@ curl ifconfig.me
 ### 🔁 Refreshing IP After Reboot
 If you restart your Linux machine, its IP address may change (depending on DHCP settings). Consider setting a static IP address or using DHCP reservation on your router if you plan to access the machine frequently.
 
+## 🔐 Firewall Configuration
+
+Make sure your firewall allows RDP traffic on port 3389:
+```bash
+sudo ufw allow 3389/tcp
+```
+To check firewall status:
+```bash
+sudo ufw status
+```
+
 ## 💻 Connecting to Your Linux Desktop
 
 ### 🔧 Install an RDP Client
 Choose an RDP client based on your device:
 
-- Windows: Microsoft Remote Desktop (built-in)
-- Linux: Remmina
-- macOS: Microsoft Remote Desktop (from App Store)
--Android/iOS: Microsoft Remote Desktop or other RDP clients
+| Platform      | Recommended RDP Client                     |
+|---------------|--------------------------------------------|
+| **Windows**   | `Microsoft Remote Desktop (built-in)`      |
+| **Linux**     | `Remmina`                                  |
+| **macOS**     | `Microsoft Remote Desktop (Mac App Store)` |
+| **Android**   | `Microsoft Remote Desktop / RD Client`     |
+| **iOS**       | `Microsoft Remote Desktop / RD Client`     |
 
 ### 🚪 Launch and Configure the RDP Client
+
 In your RDP client, enter:
 - Computer: Your Linux machine’s IP address
 - Username: Your Linux user name
@@ -155,6 +175,17 @@ Then click Connect.
 > You may be prompted to accept a certificate — this is expected.
 {: .prompt-warning }
 
+## 🧠 Optional: Install a Lightweight Desktop (If Needed)
+Some server distributions don’t include a graphical environment. You can install a lightweight desktop such as XFCE:
+```bash
+sudo apt install xfce4
+echo "startxfce4" > ~/.xsession
+```
+Restart XRDP:
+```bash
+sudo systemctl restart xrdp
+```
+
 ## 🛠 Additional Notes
 
 - 🔥 Firewall: Make sure port 3389 is open. For UFW (Ubuntu):
@@ -162,7 +193,7 @@ Then click Connect.
 sudo ufw allow 3389/tcp
 ```
 
-- ❓ Troubleshooting: If the session fails to start, try installing a desktop environment like XFCE:
+- 🚧 Troubleshooting: If the session fails to start, try installing a desktop environment like XFCE:
 ```bash
 sudo apt install xfce4
 echo "startxfce4" > ~/.xsession
@@ -172,12 +203,31 @@ echo "startxfce4" > ~/.xsession
   - Use strong passwords.
   - Avoid exposing port 3389 directly to the internet.
   - Consider setting up an SSH tunnel or VPN for remote access.
+- ❌ Black Screen After Login?
+Make sure your user has a proper .xsession file and that the desktop environment is installed.
+- 🔁 Cannot Reconnect After Disconnect?
+Try restarting the XRDP and session manager services:
+```bash
+sudo systemctl restart xrdp
+sudo systemctl restart xrdp-sesman
+```
+- 🔐 Security Warning or Certificate Error?
+Accept the certificate if it's your system. For public access, consider using a custom certificate and SSH tunneling.
+
+## 🛡️ Security Best Practices
+If you're enabling RDP access over the internet:
+- 🔒 Use strong passwords
+- 🔐 Consider using SSH tunneling or VPN instead of exposing port 3389
+- 🧱 Restrict RDP to known IP ranges via firewall rules
+- 📜 Enable logging and auditing on XRDP and SSH
 
 ## ✅ Conclusion
 
-Using XRDP to set up RDP access on your Linux machine enables seamless remote work from almost any device. It’s ideal for:
-- Working from home
-- Remote troubleshooting
-- File access across locations
+XRDP makes it easy to connect to your Linux desktop from almost any device using the familiar RDP protocol. Whether you're managing a remote server, helping a colleague, or accessing your home machine on the go, this setup provides flexibility and performance with minimal configuration. With proper firewall, security, and desktop environment setup, you can enjoy a smooth remote experience. Just make sure your system is secure, firewall rules are correct, and you use a reliable RDP client.
 
-Just make sure your system is secure, firewall rules are correct, and you use a reliable RDP client.
+## 📚 References
+
+<a href="http://www.xrdp.org/" target="_blank" rel="noopener noreferrer">XRDP Official Site</a>\
+<a href="https://remmina.org/" target="_blank" rel="noopener noreferrer">Remmina – Remote Desktop for Linux</a>\
+<a href="https://help.ubuntu.com/community/UFW/" target="_blank" rel="noopener noreferrer">Ubuntu Firewall Configuration</a>\
+<a href="https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/remotepc/remote-desktop-allow-access/" target="_blank" rel="noopener noreferrer">Enable Remote Desktop on your PC</a>
