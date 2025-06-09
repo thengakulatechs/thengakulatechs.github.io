@@ -227,7 +227,7 @@ XRDP makes it easy to connect to your Linux desktop from almost any device using
 
 ## 📚 References
 
-<a href="http://www.xrdp.org/" target="_blank" rel="noopener noreferrer">XRDP Official Site</a>\
+<a href="https://www.xrdp.org/" target="_blank" rel="noopener noreferrer">XRDP Official Site</a>\
 <a href="https://remmina.org/" target="_blank" rel="noopener noreferrer">Remmina – Remote Desktop for Linux</a>\
 <a href="https://help.ubuntu.com/community/UFW/" target="_blank" rel="noopener noreferrer">Ubuntu Firewall Configuration</a>\
 <a href="https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/remotepc/remote-desktop-allow-access/" target="_blank" rel="noopener noreferrer">Enable Remote Desktop on your PC</a>
