@@ -2,7 +2,7 @@
 title: Analyzing Account Manipulation Techniques
 date: 2025-06-06 19:25:26 +0530
 categories: [Cybersecurity, Ethical Hacking]
-tags: ['account manipulation', 'ethical hacking', 'security vulnerabilities']
+tags: ['account-manipulation', 'ethical-hacking', 'security-vulnerabilities']
 ---
 
 Within the intricate domain of cybersecurity, bolstering digital defenses critically involves dissecting prevailing threat vectors. This detailed exposition outlines a simulated attack vector centered on account manipulation, specifically exploiting a `userId` parameter vulnerability. It is **imperative to underscore** that this entire exercise serves **strictly educational purposes**, demonstrating common logical flaws in web application security. Any unauthorized attempt to replicate or execute such actions is **illegal, unethical, and unequivocally prohibited.**
