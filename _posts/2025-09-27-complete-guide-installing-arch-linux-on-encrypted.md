@@ -369,6 +369,8 @@ EOF
 
 **Important**: Replace `your-actual-uuid` with the actual UUID from the `blkid` command output.
 
+**Example**: On vim use `:r! blkid /dev/sda2` to get the UUID
+
 ## Essential Services and Network Configuration
 
 Install and enable critical services:
