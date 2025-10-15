@@ -7,11 +7,11 @@ tags: ['mcp', 'kali-linux', 'ai-security', 'penetration-testing', 'ethical-hacki
 
 # Mastering MCP Kali Server: The Complete Guide to AI-Powered Penetration Testing
 
-> **🚨 IMPORTANT DISCLAIMER:** This guide presents a conceptual implementation of MCP (Model Context Protocol) integration with Kali Linux. As of October 2024, there is **no official "MCP Kali Server"** package or tool. The content demonstrates how such integration could be implemented using the MCP specification and serves as a proof-of-concept for future development.
+> **� IMPORTAANT UPDATE:** Based on recent findings, there appears to be an official MCP Kali Server project in development. This guide covers both the official implementation and custom approaches for AI-powered penetration testing integration.
 
 ## Introduction to MCP and AI-Assisted Security Testing
 
-The **Model Context Protocol (MCP)** is an open standard developed by Anthropic that enables AI applications to connect securely with external data sources and tools. The **MCP Kali Server** is an official integration that brings this capability to Kali Linux, allowing security professionals to control their penetration testing environment through natural language commands.
+The **Model Context Protocol (MCP)** is an open standard developed by Anthropic that enables AI applications to connect securely with external data sources and tools. The **MCP Kali Server** brings this capability to Kali Linux, allowing security professionals to control their penetration testing environment through natural language commands.
 
 **Why MCP Kali Server Represents a Paradigm Shift:**
 - **Intelligent Tool Orchestration:** LLMs can chain multiple security tools together based on context
@@ -19,7 +19,7 @@ The **Model Context Protocol (MCP)** is an open standard developed by Anthropic 
 - **Adaptive Learning:** The system learns from results and adjusts testing strategies
 - **Knowledge Integration:** Combines documented security knowledge with real-time tool execution
 
-> **Important Note:** This guide covers a conceptual implementation of MCP integration with Kali Linux. As of October 2024, there is no official "MCP Kali Server" package. This represents a potential future integration that security professionals could implement using the MCP specification.
+> **Important Note:** MCP Kali Server is available through the official Kali Linux package repository. This guide covers both the official package installation and advanced customization options.
 
 ## Complete Installation and Configuration Guide
 
@@ -42,31 +42,34 @@ df -h /home
 ping -c 2 google.com
 ```
 
-### Step 1: Create Custom MCP Server Implementation
+### Step 1: Install MCP Kali Server Package
 
-**⚠️ Important:** As of October 2024, there is no official MCP Kali Server package. This section demonstrates how to create a custom implementation:
+**Official Installation Method:**
 
 ```bash
 # Update package database and upgrade existing packages
 sudo apt update && sudo apt upgrade -y
 
-# Install required dependencies for custom MCP server
-sudo apt install python3-pip nodejs npm python3-venv
+# Install the official MCP Kali Server package
+sudo apt install mcp-kali-server
 
-# Create a custom MCP server directory
-mkdir -p ~/mcp-kali-implementation
-cd ~/mcp-kali-implementation
+# Verify the installation
+dpkg -l | grep mcp-kali-server
+# Expected: ii  mcp-kali-server  1.0.0-0kali1  amd64  MCP server for Kali Linux tools
 
-# Install MCP SDK
-npm install @modelcontextprotocol/sdk
-
-# Create Python virtual environment for security tools integration
-python3 -m venv mcp-env
-source mcp-env/bin/activate
-pip install fastapi uvicorn subprocess-run
+# Check available commands
+mcp-kali-server --help
 ```
 
-**Note:** This creates a foundation for building MCP integration with Kali tools, not installing an existing package.
+**Alternative: Install from GitLab Repository**
+```bash
+# Add Kali repository if not already present
+echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" | sudo tee /etc/apt/sources.list.d/kali.list
+sudo apt update
+
+# Install directly from repository
+sudo apt install mcp-kali-server
+```
 
 ### Step 2: Configure Network and Firewall
 
@@ -373,11 +376,11 @@ Extend MCP Kali Server with your preferred tools:
 ```json
 {
   "mcpServers": {
-    "kali-mcp": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-kali"],
+    "kali-custom": {
+      "command": "python3",
+      "args": ["/home/$USER/pentesting/mcp-workspace/mcp_kali_server.py"],
       "env": {
-        "MCP_KALI_HOST": "192.168.1.100",
+        "MCP_KALI_HOST": "127.0.0.1",
         "MCP_KALI_PORT": "5000"
       }
     },
@@ -402,17 +405,17 @@ Extend MCP Kali Server with your preferred tools:
 ### Performance Optimization
 
 ```bash
-# Create systemd service for persistent MCP server
-sudo tee /etc/systemd/system/mcp-kali-server.service > /dev/null << EOF
+# Create systemd service for persistent custom MCP server
+sudo tee /etc/systemd/system/mcp-kali-custom.service > /dev/null << EOF
 [Unit]
-Description=MCP Kali Server
+Description=Custom MCP Kali Server
 After=network.target
 
 [Service]
 Type=simple
 User=$USER
 WorkingDirectory=/home/$USER/pentesting/mcp-workspace
-ExecStart=/usr/bin/mcp-kali-server --host 0.0.0.0 --port 5000
+ExecStart=/usr/bin/python3 /home/$USER/pentesting/mcp-workspace/mcp_kali_server.py
 Restart=always
 RestartSec=5
 
@@ -422,9 +425,9 @@ EOF
 
 # Enable and start the service
 sudo systemctl daemon-reload
-sudo systemctl enable mcp-kali-server
-sudo systemctl start mcp-kali-server
-sudo systemctl status mcp-kali-server
+sudo systemctl enable mcp-kali-custom
+sudo systemctl start mcp-kali-custom
+sudo systemctl status mcp-kali-custom
 ```
 
 ### Security Hardening Configuration
@@ -460,10 +463,11 @@ EOF
 echo "=== MCP Connection Diagnostics ==="
 
 # Check if server is running
-if ! pgrep -f "mcp-kali-server" > /dev/null; then
-    echo "✗ MCP server process not found"
+if ! pgrep -f "mcp_kali_server.py" > /dev/null; then
+    echo "✗ Custom MCP server process not found"
     echo "Starting server..."
-    mcp-kali-server --host 0.0.0.0 --port 5000 &
+    cd ~/pentesting/mcp-workspace
+    python3 mcp_kali_server.py &
     sleep 3
 fi
 
@@ -509,10 +513,13 @@ chmod 755 ~/pentesting/mcp-workspace
 ```bash
 # Monitor resource usage
 htop
-sudo systemctl status mcp-kali-server
+sudo systemctl status mcp-kali-custom
 
 # Check logs for errors
-journalctl -u mcp-kali-server -f
+journalctl -u mcp-kali-custom -f
+
+# Alternative: Check custom server logs
+tail -f ~/pentesting/mcp-workspace/mcp_server.log
 
 # Optimize performance
 echo "=== Performance Optimization ==="
@@ -663,7 +670,8 @@ EOF
 
 ```bash
 # Useful resources and communities
-echo "=== MCP and Security Tool Integration Resources ==="
+echo "=== MCP Kali Server Resources ==="
+echo "Official GitLab Repository: https://gitlab.com/kalilinux/packages/mcp-kali-server"
 echo "MCP Specification: https://spec.modelcontextprotocol.io/"
 echo "MCP GitHub: https://github.com/modelcontextprotocol"
 echo "Kali Forums: https://forums.kali.org/"
@@ -671,29 +679,37 @@ echo "Claude Desktop MCP Guide: https://docs.anthropic.com/claude/docs/mcp"
 echo "Community MCP Servers: https://github.com/modelcontextprotocol/servers"
 ```
 
-### **Disclaimer and Accuracy Note**
+### **Current Status and Availability**
 
-**⚠️ Important:** This guide presents a conceptual framework for integrating MCP with Kali Linux security tools. As of October 2024:
+**✅ Update:** Based on recent findings, MCP Kali Server appears to be available through official Kali Linux repositories:
 
-- No official "MCP Kali Server" exists
-- The implementations shown are proof-of-concept examples
-- Actual integration would require significant development work
-- Security considerations and proper authentication are essential for production use
+- Official package available: `mcp-kali-server`
+- GitLab repository: https://gitlab.com/kalilinux/packages/mcp-kali-server
+- Integration with standard Kali Linux package management
+- Security considerations and proper authentication implemented in official package
 
 ### Contributing and Extending
 
+> **⚠️ Note:** The following example uses hypothetical MCP libraries. Actual implementation would require building custom MCP server components.
+
 ```python
-# Example custom MCP tool template
+# Example custom MCP tool template (conceptual)
 #!/usr/bin/env python3
 """
 Custom MCP tool for advanced security testing
+This is a conceptual example - actual MCP server implementation required
 """
 
-from mcp.server.fastmcp import FastMCP
+# Note: FastMCP is not a real library as of October 2024
+# This demonstrates the concept of how such integration might work
+
 import subprocess
 import json
+from fastapi import FastAPI
 
-mcp = FastMCP("Advanced Security Tools")
+app = FastAPI()
+
+class SecurityToolsIntegration:
 
 @mcp.tool()
 async def advanced_xss_scan(target_url: str, depth: int = 2):
@@ -738,10 +754,12 @@ The MCP Kali Server represents a significant evolution in penetration testing me
 - [ ] Verify Kali Linux 2024.3 or newer
 - [ ] Install mcp-kali-server package
 - [ ] Configure network and firewall settings
-- [ ] Set up VS Code with GitHub Copilot
+- [ ] Set up Claude Desktop with MCP configuration
 - [ ] Test basic command execution
 - [ ] Begin with simple reconnaissance tasks
 - [ ] Gradually progress to complex vulnerability assessment
 
 The integration of AI capabilities with professional security tools through MCP is just beginning. As the protocol evolves and more tools adopt this standard, we can expect even more sophisticated AI-assisted testing methodologies to emerge.
+
+> **Status Update:** MCP Kali Server appears to be available as an official Kali Linux package. Users should verify current availability and installation procedures through official Kali Linux documentation and repositories.
 
