@@ -48,13 +48,24 @@ amass enum -passive -d target.com -o amass_passive.txt
 # Active enumeration (more comprehensive but noisier)
 amass enum -active -d target.com -brute -w wordlist.txt -o amass_active.txt
 
-# Continuous monitoring
-amass track -d target.com -watch
+# Continuous monitoring (Note: amass track deprecated in newer versions)
+amass enum -d target.com -monitor -o continuous_monitoring.txt
 ```
+
+**⚠️ Update Note:** The `amass track` command has been deprecated in newer versions. Use `amass enum -monitor` for continuous monitoring.
 
 **Pro Tip:** Combine multiple tools and de-duplicate results:
 ```bash
 cat subfinder.txt amass.txt assetfinder.txt | sort -u > all_subdomains.txt
+```
+
+**Modern Alternative - Using Chaos:**
+```bash
+# ProjectDiscovery's Chaos for subdomain enumeration
+chaos -d target.com -o chaos_subs.txt
+
+# Combine with traditional tools
+cat subfinder.txt amass.txt chaos_subs.txt | anew all_subdomains.txt
 ```
 
 ### 2. Port Scanning: Mapping the Attack Surface
@@ -89,16 +100,25 @@ nmap -sS -sV --script vuln -p80,443 -oA vuln_scan target.com
 
 **Why It Matters:** Screenshots help identify custom applications, login portals, and outdated software at a glance.
 
-**Aquatone in Action:**
+**⚠️ Aquatone Status Update:**
+> **Note:** Aquatone is no longer actively maintained. Consider modern alternatives like Gowitness or httpx with screenshot capabilities.
+
+**Gowitness (Modern Alternative):**
 ```bash
 # Basic screenshot capture
-cat subdomains.txt | aquatone -ports large
+gowitness file -f subdomains.txt --threads 20
 
-# With specific ports and detailed output
-cat subdomains.txt | aquatone -ports 80,443,8080,8443 -scan-timeout 500 -screenshot-timeout 30000
+# With specific ports and timeout settings
+gowitness file -f subdomains.txt --ports 80,443,8080,8443 --timeout 10
 
-# Generate comprehensive report
-cat subdomains.txt | aquatone -out ./aquatone_report -chromedriver /path/to/chromedriver
+# Generate comprehensive report with screenshots
+gowitness file -f subdomains.txt --write-db --write-csv
+```
+
+**httpx with Screenshots:**
+```bash
+# Take screenshots with httpx
+cat subdomains.txt | httpx -screenshot -store-response-dir screenshots/
 ```
 
 **Eyewitness Alternative:**
@@ -158,6 +178,14 @@ python3 LinkFinder.py -i https://target.com -d -o cli
 
 # Output to HTML for better visualization
 python3 LinkFinder.py -i https://target.com -o results.html
+```
+
+**Modern Alternative - JSluice:**
+```bash
+# Modern JavaScript analysis with JSluice
+echo "https://target.com/app.js" | jsluice urls
+echo "https://target.com/app.js" | jsluice secrets
+echo "https://target.com/app.js" | jsluice endpoints
 ```
 
 **GF Patterns for Targeted Hunting:**
@@ -238,6 +266,12 @@ python3 xsstrike.py -u "https://target.com" --crawl
 
 # Skip DOM scanning for speed
 python3 xsstrike.py -u "https://target.com/search?q=test" --skip-dom
+```
+
+**Modern Alternative - Katana + Dalfox Pipeline:**
+```bash
+# Modern XSS testing pipeline
+echo "https://target.com" | katana -silent | grep "=" | dalfox pipe
 ```
 
 ### 8. SQL Injection Automation
@@ -343,20 +377,51 @@ echo "[+] Reconnaissance complete!"
 
 ```bash
 #!/bin/bash
-# continuous_monitor.sh
+# continuous_monitor.sh - Updated 2024 version
 DOMAINS="target1.com target2.com target3.com"
 
 while true; do
     for domain in $DOMAINS; do
         echo "[$(date)] Scanning $domain"
+        
+        # Modern subdomain enumeration
         subfinder -d $domain -silent | anew ${domain}_subs.txt
-        if [ -s new_subs.txt ]; then
+        chaos -d $domain -silent | anew ${domain}_subs.txt
+        
+        # Check for new subdomains
+        if [ -s ${domain}_subs.txt.new ]; then
             echo "New subdomains found for $domain!"
-            cat new_subs.txt | notify -id discord
+            
+            # Immediate verification of new subdomains
+            cat ${domain}_subs.txt.new | httpx -silent | anew ${domain}_live.txt
+            
+            # Screenshot new live hosts
+            cat ${domain}_live.txt | gowitness file -f - --threads 10
+            
+            # Notify about findings
+            cat ${domain}_subs.txt.new | notify -id discord -bulk
         fi
     done
     sleep 3600 # Wait 1 hour
 done
+```
+
+**Modern Alternative - Using GitHub Actions:**
+```yaml
+# .github/workflows/continuous-recon.yml
+name: Continuous Reconnaissance
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+jobs:
+  recon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Subfinder
+        run: |
+          subfinder -d ${{ secrets.TARGET_DOMAIN }} -silent | anew subs.txt
+          git add subs.txt && git commit -m "Update subdomains" && git push
 ```
 
 ## Advanced Automation Strategies
@@ -399,21 +464,50 @@ kubectl create job --image=subfinder subfinder-scan -- -d target.com -o /output/
 aws batch submit-job --job-name bugbounty-scan --job-queue scanning-queue --job-definition recon-container
 ```
 
-## Common Pitfalls and How to Avoid Them
+## Common Pitfalls and How to Avoid Them (2024 Update)
 
 1. **Getting Blocked:** Use rate limiting, random delays, and rotate user agents
 2. **False Positives:** Implement validation steps and manual verification workflows
 3. **Tool Overload:** Focus on mastering a core toolset rather than using every new tool
 4. **Analysis Paralysis:** Build pipelines that prioritize and categorize findings automatically
+5. **Outdated Tools:** Regularly update tools and replace deprecated ones (Aquatone → Gowitness)
+6. **API Rate Limits:** Many tools now use APIs with rate limits - configure API keys properly
+7. **WAF Evolution:** Modern WAFs are smarter - use more sophisticated evasion techniques
 
-## The Professional's Toolkit
+## 2024 Best Practices
+
+**Tool Maintenance:**
+```bash
+# Keep tools updated
+go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+
+# Update nuclei templates regularly
+nuclei -update-templates
+```
+
+**Modern Workflow Integration:**
+- Use **anew** for deduplication instead of basic sort/uniq
+- Implement **notify** for real-time alerts
+- Use **chaos** for additional subdomain sources
+- Leverage **katana** for modern crawling
+
+## The Professional's Toolkit (2024 Updated)
 
 **Essential Tools Summary:**
-- **Recon:** Subfinder, Amass, Assetfinder
+- **Recon:** Subfinder, Amass, Assetfinder, Chaos
 - **HTTP Analysis:** httpx, nuclei, katana
-- **Content Discovery:** ffuf, gospider, hakrawler
-- **Vulnerability Scanning:** nuclei, napalm
-- **Automation Framework:** bugbounty-automation, recon-ng
+- **Content Discovery:** ffuf, feroxbuster, dirsearch
+- **Screenshots:** Gowitness, httpx (with screenshot flag)
+- **JavaScript Analysis:** JSluice, LinkFinder, SecretFinder
+- **Vulnerability Scanning:** nuclei, gau, waybackurls
+- **Automation Framework:** ProjectDiscovery tools, custom bash/python scripts
+
+**⚠️ Deprecated/Less Maintained:**
+- **Aquatone** → Use Gowitness or httpx screenshots
+- **amass track** → Use amass enum -monitor
+- **napalm** → Use nuclei with custom templates
 
 ## Conclusion: From Automation to Augmentation
 
